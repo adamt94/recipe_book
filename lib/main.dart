@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:recipe_book/screens/Create.dart';
 import 'package:recipe_book/screens/Recipes.dart';
-import 'package:recipe_book/screens/Upload.dart';
 import 'package:recipe_book/util/resource.dart';
 
 import 'models/recipe.dart';

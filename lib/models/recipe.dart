@@ -39,7 +39,8 @@ class Recipe {
             : Ingrediant.fromJsonList(json['ingrediants']),
         instructions: json['instructions'],
         tags: json['tags'],
-        image: json['image']);
+        image:
+            'https://imagesampler-s3uploadbucket-13dxin31bn6xs.s3.eu-west-2.amazonaws.com/${json["id"].replaceAll(' ', '')}.jpg');
   }
 
   static List<Recipe> fromJsonList(String jsondata) {

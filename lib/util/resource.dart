@@ -33,9 +33,9 @@ class Webservice {
     );
   }
 
-  static getSignurl() async {
+  static getSignurl(String? filename) async {
     final response = await http.get(Uri.parse(
-        'https://0ly1f57a8l.execute-api.eu-west-2.amazonaws.com/uploads'));
+        "https://0ly1f57a8l.execute-api.eu-west-2.amazonaws.com/uploads?${filename?.replaceAll(' ', '')}"));
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
 
@@ -63,18 +63,5 @@ class Webservice {
       },
       body: imageFile,
     );
-
-    // // create multipart request
-    // var request = http.MultipartRequest("PUT", uri);
-
-    // // multipart that takes file
-    // var multipartFile = http.MultipartFile('file', stream, length);
-
-    // // add file to multipart
-    // request.files.add(multipartFile);
-    // print(request.url);
-    // // send
-    // var response = await request.send();
-    // print(response.statusCode);
   }
 }

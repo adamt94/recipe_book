@@ -7,7 +7,6 @@ import 'package:recipe_book/models/recipe.dart';
 import 'package:recipe_book/util/resource.dart';
 
 import '../models/ingrediant.dart';
-import '../util/awsupload.dart';
 
 class Create extends StatefulWidget {
   const Create({Key? key}) : super(key: key);
@@ -209,9 +208,10 @@ class _Create extends State<Create> {
                                   duration: int.parse(durationController.text),
                                   ingrediants: ingrediants);
                               Recipe.addRecipe(createRecipe);
-                              final signedurl = await Webservice.getSignurl();
-                              Webservice.upload(imagesrc,
-                                  'willthisfinallwork.jpeg', signedurl);
+                              final signedurl = await Webservice.getSignurl(
+                                  titleController.text);
+                              Webservice.upload(
+                                  imagesrc, 'image.jpeg', signedurl);
 
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text('Saving...')),
