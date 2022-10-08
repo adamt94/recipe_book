@@ -106,8 +106,7 @@ class _Create extends State<Create> {
                         )),
                     TextFormField(
                       controller: titleController,
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
+                      keyboardType: TextInputType.text,
                       onSaved: (value) => {},
                       // {onClickAction(double.tryParse(value!))},
                       decoration: const InputDecoration(
@@ -123,10 +122,8 @@ class _Create extends State<Create> {
                     const SizedBox(height: 50),
                     TextFormField(
                       controller: intructionsController,
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
+                      keyboardType: TextInputType.text,
                       onSaved: (value) => {},
-                      //{onClickAction(double.tryParse(value!))},
                       minLines: 3,
                       maxLines: null,
                       decoration: InputDecoration(
@@ -152,6 +149,7 @@ class _Create extends State<Create> {
                             style: Theme.of(context).textTheme.subtitle1)),
                     TextFormField(
                       controller: durationController,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(hintText: 'mins'),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
