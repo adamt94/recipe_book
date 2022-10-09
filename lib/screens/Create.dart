@@ -54,7 +54,7 @@ class _Create extends State<Create> {
 
     _getFromCamera() async {
       XFile? image = await ImagePicker().pickImage(
-        source: ImageSource.camera,
+        source: ImageSource.gallery,
         maxWidth: 1800,
         maxHeight: 1800,
       );
