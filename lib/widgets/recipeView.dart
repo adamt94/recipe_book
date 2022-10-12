@@ -53,10 +53,29 @@ class RecipeView extends StatelessWidget {
                 SizedBox(
                     height: MediaQuery.of(context).size.height - 320,
                     child: Scaffold(
-                        appBar: AppBar(
-                            bottom: const TabBar(
-                          tabs: tabs,
-                        )),
+                        appBar: PreferredSize(
+                            preferredSize: const Size.fromHeight(250),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Theme.of(context)
+                                          .dividerColor
+                                          .withOpacity(0.15),
+                                      spreadRadius: 2,
+                                      blurRadius: 7,
+                                      offset: const Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                ),
+                                padding: EdgeInsets.all(0),
+                                child: SafeArea(
+                                    child: TabBar(
+                                  indicatorColor: Theme.of(context).canvasColor,
+                                  tabs: tabs,
+                                )))),
                         body: TabBarView(children: [
                           ListView(children: [
                             Padding(

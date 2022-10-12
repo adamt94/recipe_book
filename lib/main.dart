@@ -59,6 +59,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   List<Recipe> _recipes = [];
+  late ScrollController scrollController;
 
   void getRecipes() {
     Webservice().load(Recipe.getAll()).then((value) => setState(() {
@@ -92,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    //readJson();
+    scrollController = ScrollController();
     getRecipes();
   }
 
@@ -104,7 +105,13 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
 
-    final screens = [Recipes(recipes: _recipes), Create()];
+    final screens = [
+      Recipes(
+        recipes: _recipes,
+        scrollController: scrollController,
+      ),
+      Create()
+    ];
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
