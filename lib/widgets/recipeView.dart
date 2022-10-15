@@ -38,7 +38,7 @@ class RecipeView extends StatelessWidget {
           });
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Recipe'),
+              title: Text("${recipe.title}"),
               actions: <Widget>[
                 Padding(
                     padding: const EdgeInsets.only(right: 20.0),
@@ -113,38 +113,6 @@ class RecipeView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    recipe.title,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall!
-                                        .copyWith(
-                                          color: Colors.black54,
-                                          fontSize: 30.0,
-                                        ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    recipe.instructions ?? '',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                          color: Colors.black54,
-                                          height: 1.5,
-                                          fontSize: 16.0,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ]),
-                          ListView(children: [
-                            Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
                                     'Ingrediants',
                                     style: Theme.of(context)
                                         .textTheme
@@ -168,6 +136,38 @@ class RecipeView extends StatelessWidget {
                                                     .bodyLarge
                                                     ?.color
                                                     ?.withOpacity(0.6)))),
+                                ],
+                              ),
+                            ),
+                          ]),
+                          ListView(children: [
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    recipe.title,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(
+                                          color: Colors.black54,
+                                          fontSize: 30.0,
+                                        ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    recipe.instructions ?? '',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                          color: Colors.black54,
+                                          height: 1.5,
+                                          fontSize: 16.0,
+                                        ),
+                                  ),
                                 ],
                               ),
                             ),

@@ -22,6 +22,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+          textTheme: const TextTheme(
+              headline1: TextStyle(color: Colors.black, fontSize: 40),
+              headline2: TextStyle(color: Colors.black, fontSize: 35),
+              headline3: TextStyle(color: Colors.black, fontSize: 30),
+              headline4: TextStyle(color: Colors.black, fontSize: 25),
+              headline5: TextStyle(color: Colors.black, fontSize: 20)),
           // Brightness.dark/light is estimated based on the default shade for the color
           // This also sets the bool primaryIsDark
           // primaryColorBrightness = estimateBrightnessForColor(primarySwatch);
@@ -37,7 +43,7 @@ class MyApp extends StatelessWidget {
           //       errorColor: errorColor, // default (Colors.red[700]), can be set manually
           //       brightness: brightness, // default (Brightness.light), can be set manually
           //     );
-          scaffoldBackgroundColor: const Color.fromRGBO(247, 247, 247, 1),
+          backgroundColor: const Color.fromRGBO(247, 247, 247, 1),
           primarySwatch: Colors.indigo),
       home: const MyHomePage(title: 'Recipe Book'),
     );

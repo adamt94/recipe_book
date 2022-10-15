@@ -47,8 +47,6 @@ class _Create extends State<Create> {
     _row(int index) {
       return Row(
         children: [
-          Text('${index + 1}'),
-          const SizedBox(width: 30),
           Expanded(
             child: customTextField(
               hintText: 'ingrediant',
@@ -93,8 +91,7 @@ class _Create extends State<Create> {
                       child: Padding(
                           padding: const EdgeInsets.only(bottom: 50),
                           child: Text("Create Recipe",
-                              style:
-                                  Theme.of(context).textTheme.headlineMedium))),
+                              style: Theme.of(context).textTheme.headline1))),
                   Container(
                       height: 300,
                       color: Theme.of(context).cardColor.withOpacity(0.5),
@@ -138,7 +135,7 @@ class _Create extends State<Create> {
                       width: MediaQuery.of(context).size.width,
                       child: Text("Add Ingrediants",
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.subtitle1)),
+                          style: Theme.of(context).textTheme.headline3)),
                   const SizedBox(height: 10),
                   Flexible(
                     child: ListView.builder(

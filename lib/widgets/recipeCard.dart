@@ -14,50 +14,48 @@ class RecipeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        clipBehavior: Clip.antiAlias,
-        child: Card(
-            elevation: 4.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              children: [
-                Stack(children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8),
-                    ),
-                    child: Image(
-                      height: 250,
-                      width: double.infinity,
-                      image: Image.network(image).image,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                ]),
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(17, 5, 5, 5),
-                    child: Row(children: [
-                      Row(
-                        children: [
-                          const Icon(Icons.schedule),
-                          const SizedBox(
-                            width: 6,
-                          ),
-                          Text('$duration min'),
-                        ],
-                      ),
-                    ])),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: ListTile(
-                    leading: Icon(Icons.restaurant_menu),
-                    title: Text(title),
-                    trailing: Icon(Icons.favorite_outline),
-                  ),
+        elevation: 4.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          children: [
+            Stack(children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
                 ),
-              ],
-            )));
+                child: Image(
+                  height: 250,
+                  width: double.infinity,
+                  image: Image.network(image).image,
+                  fit: BoxFit.cover,
+                ),
+              )
+            ]),
+            Padding(
+                padding: const EdgeInsets.fromLTRB(17, 5, 5, 5),
+                child: Row(children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.schedule),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Text('$duration min'),
+                    ],
+                  ),
+                ])),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: ListTile(
+                leading: Icon(Icons.restaurant_menu),
+                title: Text(title),
+                trailing: Icon(Icons.favorite_outline),
+              ),
+            ),
+          ],
+        ));
   }
 }

@@ -19,32 +19,36 @@ class customTextField extends StatelessWidget {
   int? minLines;
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      keyboardType: type ?? TextInputType.text,
-      onSaved: (value) => {},
-      onChanged: (val) => {onChanged!(index, val)},
-      minLines: minLines,
-      maxLines: minLines != null ? 100 : 1,
-      decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(
-              width: 0,
-              style: BorderStyle.none,
-            ),
-          ),
-          hintText: "$hintText",
-          fillColor: Colors.white,
-          filled: true,
-          hoverColor: Colors.white70,
-          label: title != null ? Text("$title") : null),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter some text';
-        }
-        return null;
-      },
-    );
+    return Container(
+        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: TextFormField(
+          controller: controller,
+          keyboardType: type ?? TextInputType.text,
+          onSaved: (value) => {},
+          onChanged: (val) => {onChanged!(index, val)},
+          minLines: minLines,
+          maxLines: minLines != null ? 100 : 1,
+          decoration: InputDecoration(
+              floatingLabelStyle:
+                  TextStyle(color: Theme.of(context).primaryColor),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: const BorderSide(
+                  width: 0,
+                  style: BorderStyle.none,
+                ),
+              ),
+              hintText: "$hintText",
+              fillColor: Colors.white,
+              filled: true,
+              hoverColor: Colors.white70,
+              label: title != null ? Text("$title") : null),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter some text';
+            }
+            return null;
+          },
+        ));
   }
 }
