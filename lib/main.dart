@@ -22,18 +22,24 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+          // Brightness.dark/light is estimated based on the default shade for the color
+          // This also sets the bool primaryIsDark
+          // primaryColorBrightness = estimateBrightnessForColor(primarySwatch);
+          // This generates the modern simplified set of theme colors flutter recommends
+          // using when theming Widgets based on the theme. Set it manually if you need
+          // more control over individual colors
+          // colorScheme = ColorScheme.fromSwatch(
+          //       primarySwatch: primarySwatch, // as above
+          //       primaryColorDark: primaryColorDark, // as above
+          //       accentColor: accentColor, // as above
+          //       cardColor: cardColor, // default based on theme brightness, can be set manually
+          //       backgroundColor: backgroundColor, // as above
+          //       errorColor: errorColor, // default (Colors.red[700]), can be set manually
+          //       brightness: brightness, // default (Brightness.light), can be set manually
+          //     );
+          scaffoldBackgroundColor: const Color.fromRGBO(247, 247, 247, 1),
+          primarySwatch: Colors.indigo),
+      home: const MyHomePage(title: 'Recipe Book'),
     );
   }
 }
