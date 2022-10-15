@@ -9,14 +9,19 @@ import 'package:recipe_book/util/resource.dart';
 import '../models/ingrediant.dart';
 
 class Create extends StatefulWidget {
-  const Create({Key? key}) : super(key: key);
+  String? title;
+  String? instructions;
+  String? duration;
+  List<Ingrediant>? ingrediantsD;
+
+  Create({Key? key, this.title, this.instructions, this.duration})
+      : super(key: key);
 
   @override
   State<Create> createState() => _Create();
 }
 
 class _Create extends State<Create> {
-  _Create();
   final _formKey = GlobalKey<FormState>();
   TextEditingController titleController = TextEditingController();
   TextEditingController intructionsController = TextEditingController();
@@ -28,6 +33,9 @@ class _Create extends State<Create> {
 
   @override
   Widget build(BuildContext context) {
+    titleController.text = widget.title!;
+    intructionsController.text = widget.instructions!;
+    durationController.text = widget.duration!;
     _onSaved(int index, String val) async {}
     _onUpdate(int index, String val) async {
       setState(() {
@@ -42,7 +50,7 @@ class _Create extends State<Create> {
           const SizedBox(width: 30),
           Expanded(
             child: TextFormField(
-              decoration: InputDecoration(hintText: 'ingrediant'),
+              decoration: const InputDecoration(hintText: 'ingrediant'),
               onChanged: (val) {
                 _onUpdate(index, val);
               },
@@ -150,7 +158,7 @@ class _Create extends State<Create> {
                     TextFormField(
                       controller: durationController,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(hintText: 'mins'),
+                      decoration: const InputDecoration(hintText: 'mins'),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter a number';

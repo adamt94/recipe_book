@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:recipe_book/models/ingrediant.dart';
 import 'package:recipe_book/models/recipe.dart';
+import 'package:recipe_book/screens/Create.dart';
+import 'package:recipe_book/screens/Edit.dart';
 
 class RecipeView extends StatelessWidget {
   RecipeView({Key? key, required this.recipe}) : super(key: key);
@@ -37,6 +39,33 @@ class RecipeView extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: const Text('Recipe'),
+              actions: <Widget>[
+                Padding(
+                    padding: const EdgeInsets.only(right: 20.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Edit(
+                                    title: recipe.title,
+                                    duration: recipe.duration ?? 0,
+                                    instructions: recipe.instructions ?? '',
+                                  )),
+                        );
+                      },
+                      child: const Icon(
+                        Icons.edit,
+                        size: 26.0,
+                      ),
+                    )),
+                Padding(
+                    padding: const EdgeInsets.only(right: 20.0),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: const Icon(Icons.more_vert),
+                    )),
+              ],
             ),
             body: ListView(
               children: <Widget>[
