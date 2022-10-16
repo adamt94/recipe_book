@@ -132,8 +132,12 @@ class RecipeView extends StatelessWidget {
                                         visualDensity: const VisualDensity(
                                             horizontal: 0, vertical: -4),
                                         leading: Text(item.name,
-                                            style:
-                                                const TextStyle(fontSize: 15)),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelLarge!
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                        .primaryColor)),
                                         title: Text(
                                             '${item.amount} ${item.unit}',
                                             style: TextStyle(
@@ -157,11 +161,7 @@ class RecipeView extends StatelessWidget {
                                     recipe.title,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headlineSmall!
-                                        .copyWith(
-                                          color: Colors.black54,
-                                          fontSize: 30.0,
-                                        ),
+                                        .headlineSmall!,
                                   ),
                                   const SizedBox(height: 10),
                                   Text(
@@ -170,10 +170,11 @@ class RecipeView extends StatelessWidget {
                                         .textTheme
                                         .bodyMedium!
                                         .copyWith(
-                                          color: Colors.black54,
-                                          height: 1.5,
-                                          fontSize: 16.0,
-                                        ),
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium!
+                                                .color!
+                                                .withOpacity(0.7)),
                                   ),
                                 ],
                               ),

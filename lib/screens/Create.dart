@@ -142,7 +142,8 @@ class _Create extends State<Create> {
                       child: Padding(
                           padding: const EdgeInsets.only(bottom: 50),
                           child: Text("Create Recipe",
-                              style: Theme.of(context).textTheme.headline1))),
+                              style:
+                                  Theme.of(context).textTheme.headlineLarge))),
                   Container(
                       height: 300,
                       width: MediaQuery.of(context).size.width,
@@ -188,7 +189,7 @@ class _Create extends State<Create> {
                       width: MediaQuery.of(context).size.width,
                       child: Text("Add Ingrediants",
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headline3)),
+                          style: Theme.of(context).textTheme.headlineSmall)),
                   const SizedBox(height: 10),
                   Flexible(
                     child: ListView.builder(
