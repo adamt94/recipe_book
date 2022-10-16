@@ -46,7 +46,7 @@ class _Create extends State<Create> {
     intructionsController.text = widget.instructions ?? '';
     durationController.text = widget.duration ?? '';
     _onSaved(int index, String val) async {}
-    _onUpdate(int index, String val) async {
+    onUpdate(int index, String val) async {
       setState(() {
         ingrediants[index] = Ingrediant(name: val);
       });
@@ -57,13 +57,48 @@ class _Create extends State<Create> {
         children: [
           Expanded(
             child: Padding(
-                padding: const EdgeInsets.all(5),
+                padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
                 child: customTextField(
                   hintText: 'ingrediant',
+                  lrPadding: 10,
                   initValue: ingrediant.name,
                   index: index,
                   onChanged: (i, val) {
-                    _onUpdate(i, val);
+                    onUpdate(i, val);
+                  },
+                )),
+          ),
+          SizedBox(
+            width: 200,
+            child: Padding(
+                padding: const EdgeInsets.all(0),
+                child: customTextField(
+                  validator: false,
+                  hintText: 'amount',
+                  lrPadding: 10,
+                  initValue: ingrediant.amount,
+                  index: index,
+                  onChanged: (i, val) {
+                    if (i < ingrediants.length) {
+                      ingrediants[i].setAmount(val);
+                    }
+                  },
+                )),
+          ),
+          SizedBox(
+            width: 200,
+            child: Padding(
+                padding: const EdgeInsets.all(0),
+                child: customTextField(
+                  validator: false,
+                  hintText: 'unit',
+                  lrPadding: 10,
+                  initValue: ingrediant.unit,
+                  index: index,
+                  onChanged: (i, val) {
+                    if (i < ingrediants.length) {
+                      ingrediants[i].setUnit(val);
+                    }
                   },
                 )),
           ),

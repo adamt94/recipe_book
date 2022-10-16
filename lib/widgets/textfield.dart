@@ -10,6 +10,8 @@ class customTextField extends StatelessWidget {
       this.initValue,
       this.type,
       this.minLines,
+      this.lrPadding = 20,
+      this.validator = true,
       this.index});
   TextEditingController? controller;
   String? title;
@@ -19,10 +21,12 @@ class customTextField extends StatelessWidget {
   TextInputType? type;
   int? minLines;
   String? initValue;
+  double lrPadding;
+  bool validator;
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+        padding: EdgeInsets.fromLTRB(lrPadding, 0, lrPadding, 0),
         child: TextFormField(
           controller: controller,
           keyboardType: type ?? TextInputType.text,
@@ -46,12 +50,14 @@ class customTextField extends StatelessWidget {
               filled: true,
               hoverColor: Colors.white70,
               label: title != null ? Text("$title") : null),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter some text';
-            }
-            return null;
-          },
+          validator: validator
+              ? (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                }
+              : null,
         ));
   }
 }

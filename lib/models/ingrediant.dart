@@ -5,14 +5,22 @@ import 'package:flutter/cupertino.dart';
 class Ingrediant {
   final String name;
   final String? image;
-  final String? unit;
-  final String? amount;
+  String? unit;
+  String? amount;
 
   Ingrediant({required this.name, this.image, this.unit, this.amount});
 
   factory Ingrediant.fromJson(Map<String, dynamic> json) {
     return Ingrediant(
         name: json['name'], unit: json['unit'], amount: json['amount']);
+  }
+
+  void setUnit(String val) {
+    unit = val;
+  }
+
+  void setAmount(String val) {
+    amount = val;
   }
 
   static List<Ingrediant> fromJsonList(String jsondata) {
