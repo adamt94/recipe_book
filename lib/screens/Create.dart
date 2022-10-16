@@ -38,10 +38,15 @@ class _Create extends State<Create> {
   XFile? xfile;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     if (widget.ingrediantsD != null) {
-      ingrediants = widget.ingrediantsD!;
+      ingrediants = [...widget.ingrediantsD!];
     }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     titleController.text = widget.title ?? '';
     intructionsController.text = widget.instructions ?? '';
     durationController.text = widget.duration ?? '';
