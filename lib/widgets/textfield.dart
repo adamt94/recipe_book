@@ -7,6 +7,7 @@ class customTextField extends StatelessWidget {
       this.title,
       this.hintText,
       this.onChanged,
+      this.initValue,
       this.type,
       this.minLines,
       this.index});
@@ -17,6 +18,7 @@ class customTextField extends StatelessWidget {
   int? index;
   TextInputType? type;
   int? minLines;
+  String? initValue;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,6 +29,7 @@ class customTextField extends StatelessWidget {
           onSaved: (value) => {},
           onChanged: (val) => {onChanged!(index, val)},
           minLines: minLines,
+          initialValue: initValue,
           maxLines: minLines != null ? 100 : 1,
           decoration: InputDecoration(
               floatingLabelStyle:

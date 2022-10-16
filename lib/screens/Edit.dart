@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_book/models/ingrediant.dart';
 import 'package:recipe_book/screens/Create.dart';
 
 class Edit extends StatelessWidget {
@@ -6,17 +7,16 @@ class Edit extends StatelessWidget {
       {super.key,
       required this.title,
       required this.instructions,
-      required this.duration});
+      required this.duration,
+      this.ingrediants});
 
   String title;
   String instructions;
   int duration;
+  List<Ingrediant>? ingrediants;
 
   @override
   Widget build(BuildContext context) {
-    print(title);
-    print(instructions);
-    print(duration);
     return Scaffold(
         appBar: AppBar(
           title: const Text('Edit Recipe'),
@@ -25,6 +25,7 @@ class Edit extends StatelessWidget {
           title: title,
           instructions: instructions,
           duration: duration.toString(),
+          ingrediantsD: ingrediants,
         ));
   }
 }

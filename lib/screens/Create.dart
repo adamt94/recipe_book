@@ -15,7 +15,12 @@ class Create extends StatefulWidget {
   String? duration;
   List<Ingrediant>? ingrediantsD;
 
-  Create({Key? key, this.title, this.instructions, this.duration})
+  Create(
+      {Key? key,
+      this.title,
+      this.instructions,
+      this.duration,
+      this.ingrediantsD})
       : super(key: key);
 
   @override
@@ -34,6 +39,9 @@ class _Create extends State<Create> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.ingrediantsD != null) {
+      ingrediants = widget.ingrediantsD!;
+    }
     titleController.text = widget.title ?? '';
     intructionsController.text = widget.instructions ?? '';
     durationController.text = widget.duration ?? '';
@@ -44,17 +52,20 @@ class _Create extends State<Create> {
       });
     }
 
-    _row(int index) {
+    _row(int index, Ingrediant ingrediant) {
       return Row(
         children: [
           Expanded(
-            child: customTextField(
-              hintText: 'ingrediant',
-              index: index,
-              onChanged: (i, val) {
-                _onUpdate(i, val);
-              },
-            ),
+            child: Padding(
+                padding: const EdgeInsets.all(5),
+                child: customTextField(
+                  hintText: 'ingrediant',
+                  initValue: ingrediant.name,
+                  index: index,
+                  onChanged: (i, val) {
+                    _onUpdate(i, val);
+                  },
+                )),
           ),
         ],
       );
@@ -94,10 +105,12 @@ class _Create extends State<Create> {
                               style: Theme.of(context).textTheme.headline1))),
                   Container(
                       height: 300,
-                      color: Theme.of(context).cardColor.withOpacity(0.5),
                       width: MediaQuery.of(context).size.width,
                       decoration: imagesrc.isEmpty
-                          ? null
+                          ? BoxDecoration(
+                              color:
+                                  Theme.of(context).cardColor.withOpacity(0.5),
+                            )
                           : BoxDecoration(
                               image: DecorationImage(
                                 image: Image.memory(imagesrc).image,
@@ -142,7 +155,7 @@ class _Create extends State<Create> {
                       shrinkWrap: true,
                       itemCount: ingrediants.length,
                       itemBuilder: (context, index) {
-                        return _row(index);
+                        return _row(index, ingrediants[index]);
                       },
                     ),
                   ),

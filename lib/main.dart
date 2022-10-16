@@ -75,7 +75,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void getRecipes() {
     Webservice().load(Recipe.getAll()).then((value) => setState(() {
-          print(value);
           _recipes = value;
         }));
   }

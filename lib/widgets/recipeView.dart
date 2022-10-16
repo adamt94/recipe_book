@@ -51,6 +51,7 @@ class RecipeView extends StatelessWidget {
                                     title: recipe.title,
                                     duration: recipe.duration ?? 0,
                                     instructions: recipe.instructions ?? '',
+                                    ingrediants: recipe.ingrediants,
                                   )),
                         );
                       },
@@ -124,6 +125,12 @@ class RecipeView extends StatelessWidget {
                                         Ingrediant(name: 'no ingrediants found')
                                       ])
                                     ListTile(
+                                        dense: true,
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                horizontal: 0.0, vertical: 0.0),
+                                        visualDensity: const VisualDensity(
+                                            horizontal: 0, vertical: -4),
                                         leading: Text(item.name,
                                             style:
                                                 const TextStyle(fontSize: 15)),
