@@ -117,7 +117,7 @@ class RecipeView extends StatelessWidget {
                                     'Ingrediants',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headlineSmall,
+                                        .headlineSmall!,
                                   ),
                                   const SizedBox(height: 10),
                                   for (var item in recipe.ingrediants ??
@@ -128,14 +128,16 @@ class RecipeView extends StatelessWidget {
                                         dense: true,
                                         contentPadding:
                                             const EdgeInsets.symmetric(
-                                                horizontal: 0.0, vertical: 0.0),
+                                                horizontal: 10.0,
+                                                vertical: 0.0),
                                         visualDensity: const VisualDensity(
                                             horizontal: 0, vertical: -4),
                                         leading: Text(item.name,
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .labelLarge!
+                                                .titleMedium!
                                                 .copyWith(
+                                                    fontWeight: FontWeight.w500,
                                                     color: Theme.of(context)
                                                         .primaryColor)),
                                         title: Text(
@@ -146,7 +148,7 @@ class RecipeView extends StatelessWidget {
                                                     .textTheme
                                                     .bodyLarge
                                                     ?.color
-                                                    ?.withOpacity(0.6)))),
+                                                    ?.withOpacity(0.7)))),
                                 ],
                               ),
                             ),
