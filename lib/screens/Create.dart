@@ -61,6 +61,7 @@ class _Create extends State<Create> {
       return Row(
         children: [
           Expanded(
+            flex: 4,
             child: Padding(
                 padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
                 child: customTextField(
@@ -73,8 +74,8 @@ class _Create extends State<Create> {
                   },
                 )),
           ),
-          SizedBox(
-            width: 200,
+          Expanded(
+            flex: 1,
             child: Padding(
                 padding: const EdgeInsets.all(0),
                 child: customTextField(
@@ -90,8 +91,8 @@ class _Create extends State<Create> {
                   },
                 )),
           ),
-          SizedBox(
-            width: 200,
+          Expanded(
+            flex: 1,
             child: Padding(
                 padding: const EdgeInsets.all(0),
                 child: customTextField(
