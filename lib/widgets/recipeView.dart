@@ -52,6 +52,7 @@ class RecipeView extends StatelessWidget {
                                     duration: recipe.duration ?? 0,
                                     instructions: recipe.instructions ?? '',
                                     ingrediants: recipe.ingrediants,
+                                    imageurl: recipe.image,
                                   )),
                         );
                       },

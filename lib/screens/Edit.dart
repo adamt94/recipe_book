@@ -8,12 +8,14 @@ class Edit extends StatelessWidget {
       required this.title,
       required this.instructions,
       required this.duration,
-      this.ingrediants});
+      this.ingrediants,
+      this.imageurl});
 
   String title;
   String instructions;
   int duration;
   List<Ingrediant>? ingrediants;
+  String? imageurl;
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +24,10 @@ class Edit extends StatelessWidget {
           title: const Text('Edit Recipe'),
         ),
         body: Create(
-          title: title,
-          instructions: instructions,
-          duration: duration.toString(),
-          ingrediantsD: ingrediants,
-        ));
+            title: title,
+            instructions: instructions,
+            duration: duration.toString(),
+            ingrediantsD: ingrediants,
+            imageurl: imageurl));
   }
 }

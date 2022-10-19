@@ -14,13 +14,15 @@ class Create extends StatefulWidget {
   String? instructions;
   String? duration;
   List<Ingrediant>? ingrediantsD;
+  String? imageurl;
 
   Create(
       {Key? key,
       this.title,
       this.instructions,
       this.duration,
-      this.ingrediantsD})
+      this.ingrediantsD,
+      this.imageurl = ''})
       : super(key: key);
 
   @override
@@ -92,7 +94,7 @@ class _Create extends State<Create> {
                 )),
           ),
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Padding(
                 padding: const EdgeInsets.all(0),
                 child: customTextField(
@@ -128,6 +130,29 @@ class _Create extends State<Create> {
       }
     }
 
+    Decoration getDefaultImage(bool imagePickersrc, String imageurl) {
+      if (imagePickersrc == true) {
+        return BoxDecoration(
+          image: DecorationImage(
+            image: Image.memory(imagesrc).image,
+            fit: BoxFit.cover,
+          ),
+        );
+      }
+      if (imageurl != '') {
+        return BoxDecoration(
+          image: DecorationImage(
+            image: Image.network(imageurl).image,
+            fit: BoxFit.cover,
+          ),
+        );
+      }
+
+      return BoxDecoration(
+        color: Theme.of(context).cardColor.withOpacity(0.5),
+      );
+    }
+
     return SingleChildScrollView(
         child: Form(
       key: _formKey,
@@ -148,17 +173,8 @@ class _Create extends State<Create> {
                   Container(
                       height: 300,
                       width: MediaQuery.of(context).size.width,
-                      decoration: imagesrc.isEmpty
-                          ? BoxDecoration(
-                              color:
-                                  Theme.of(context).cardColor.withOpacity(0.5),
-                            )
-                          : BoxDecoration(
-                              image: DecorationImage(
-                                image: Image.memory(imagesrc).image,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                      decoration: getDefaultImage(
+                          imagesrc.isNotEmpty, widget.imageurl!),
                       child: TextButton(
                         child: const Text('+ Image'),
                         onPressed: () {
@@ -232,8 +248,11 @@ class _Create extends State<Create> {
                             Recipe.addRecipe(createRecipe);
                             final signedurl = await Webservice.getSignurl(
                                 titleController.text);
-                            Webservice.upload(
-                                imagesrc, 'image.jpeg', signedurl);
+
+                            if (imagesrc.isNotEmpty) {
+                              Webservice.upload(
+                                  imagesrc, 'image.jpeg', signedurl);
+                            }
 
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Saving...')),
