@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recipe_book/models/recipe.dart';
 import 'package:recipe_book/util/resource.dart';
+import 'package:recipe_book/widgets/ImageCapture.dart';
 import 'package:recipe_book/widgets/textfield.dart';
 
 import '../models/ingrediant.dart';
@@ -44,15 +45,15 @@ class _Create extends State<Create> {
     if (widget.ingrediantsD != null) {
       ingrediants = [...widget.ingrediantsD!];
     }
+
+    titleController.text = widget.title ?? '';
+    intructionsController.text = widget.instructions ?? '';
+    durationController.text = widget.duration ?? '';
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    titleController.text = widget.title ?? '';
-    intructionsController.text = widget.instructions ?? '';
-    durationController.text = widget.duration ?? '';
-    _onSaved(int index, String val) async {}
     onUpdate(int index, String val) async {
       setState(() {
         ingrediants[index] = Ingrediant(name: val);
@@ -114,43 +115,10 @@ class _Create extends State<Create> {
       );
     }
 
-    _getFromCamera() async {
-      XFile? image = await ImagePicker().pickImage(
-        source: ImageSource.gallery,
-        maxWidth: 1800,
-        maxHeight: 1800,
-      );
-      if (image != null) {
-        Uint8List src = await image.readAsBytes();
-        setState(() {
-          imagename = image.name;
-          imagesrc = src;
-          xfile = image;
-        });
-      }
-    }
-
-    Decoration getDefaultImage(bool imagePickersrc, String imageurl) {
-      if (imagePickersrc == true) {
-        return BoxDecoration(
-          image: DecorationImage(
-            image: Image.memory(imagesrc).image,
-            fit: BoxFit.cover,
-          ),
-        );
-      }
-      if (imageurl != '') {
-        return BoxDecoration(
-          image: DecorationImage(
-            image: Image.network(imageurl).image,
-            fit: BoxFit.cover,
-          ),
-        );
-      }
-
-      return BoxDecoration(
-        color: Theme.of(context).cardColor.withOpacity(0.5),
-      );
+    void setImageSrc(Uint8List src) {
+      setState(() {
+        imagesrc = src;
+      });
     }
 
     return SingleChildScrollView(
@@ -170,17 +138,10 @@ class _Create extends State<Create> {
                           child: Text("Create Recipe",
                               style:
                                   Theme.of(context).textTheme.headlineLarge))),
-                  Container(
-                      height: 300,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: getDefaultImage(
-                          imagesrc.isNotEmpty, widget.imageurl!),
-                      child: TextButton(
-                        child: const Text('+ Image'),
-                        onPressed: () {
-                          _getFromCamera();
-                        },
-                      )),
+                  ImageCapture(
+                    setImageValue: setImageSrc,
+                    imageurl: widget.imageurl,
+                  ),
                   const SizedBox(height: 20),
                   customTextField(
                     controller: titleController,
@@ -202,7 +163,7 @@ class _Create extends State<Create> {
                     hintText: "mins",
                   ),
                   const SizedBox(height: 40),
-                  Container(
+                  SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Text("Add Ingrediants",
                           textAlign: TextAlign.center,
@@ -254,6 +215,7 @@ class _Create extends State<Create> {
                                   imagesrc, 'image.jpeg', signedurl);
                             }
 
+                            // ignore: use_build_context_synchronously
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Saving...')),
                             );
