@@ -16,6 +16,7 @@ class Recipe {
   final List<Ingrediant>? ingrediants;
   final String? instructions;
   final int? servings;
+  final List<String>? ingrediantGroupNames;
 
   Recipe(
       {this.instructions,
@@ -25,21 +26,32 @@ class Recipe {
       this.category,
       this.tags,
       this.image,
+      this.ingrediantGroupNames,
       required this.title});
 
-  factory Recipe.fromJson(Map<String, dynamic> json) {
+  factory Recipe.fromJson(Map<String, dynamic> jsondata) {
     return Recipe(
-        title: json["id"],
-        servings: json['servings'],
-        duration: int.parse(json['duration']),
-        category: json['category'],
-        ingrediants: json['ingrediants'] == 'null'
+        title: jsondata["id"],
+        servings: jsondata['servings'],
+        duration: int.parse(jsondata['duration']),
+        category: jsondata['category'],
+        ingrediantGroupNames: jsondata['ingrediantGroupNames'] == null
             ? []
-            : Ingrediant.fromJsonList(json['ingrediants']),
-        instructions: json['instructions'],
-        tags: json['tags'],
+            : fromStringtoList(jsondata['ingrediantGroupNames']),
+        ingrediants: jsondata['ingrediants'] == 'null'
+            ? []
+            : Ingrediant.fromJsonList(jsondata['ingrediants']),
+        instructions: jsondata['instructions'],
+        tags: jsondata['tags'],
         image:
-            'https://imagesampler-s3uploadbucket-13dxin31bn6xs.s3.eu-west-2.amazonaws.com/${json["id"].replaceAll(' ', '')}.jpg');
+            'https://imagesampler-s3uploadbucket-13dxin31bn6xs.s3.eu-west-2.amazonaws.com/${jsondata["id"].replaceAll(' ', '')}.jpg');
+  }
+
+  static List<String> fromStringtoList(String jsonstring) {
+    final result = json.decode(jsonstring);
+    Iterable list = result;
+
+    return list.map((e) => e as String).toList();
   }
 
   static List<Recipe> fromJsonList(String jsondata) {
@@ -58,6 +70,7 @@ class Recipe {
       "ingrediants": json.encode(ingrediants),
       "instructions": instructions,
       "servings": servings,
+      "ingrediantGroupNames": json.encode(ingrediantGroupNames)
     };
   }
 
@@ -71,7 +84,7 @@ class Recipe {
   @override
   String toString() {
     // TODO: implement toString
-    return "title: $title, servings: $servings, duration: $duration: categegory: $category, image: $image";
+    return "title: $title, servings: $servings, duration: $duration: categegory: $category, image: $image, ingrediantGroupNames: $ingrediantGroupNames";
   }
 
   static Resource<List<Recipe>> getAll() {

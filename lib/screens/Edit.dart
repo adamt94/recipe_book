@@ -2,20 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:recipe_book/models/ingrediant.dart';
 import 'package:recipe_book/screens/Create.dart';
 
-class Edit extends StatelessWidget {
-  Edit(
-      {super.key,
-      required this.title,
-      required this.instructions,
-      required this.duration,
-      this.ingrediants,
-      this.imageurl});
+import '../models/recipe.dart';
 
-  String title;
-  String instructions;
-  int duration;
-  List<Ingrediant>? ingrediants;
-  String? imageurl;
+class Edit extends StatelessWidget {
+  Edit({super.key, required this.recipe});
+
+  Recipe recipe;
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +16,12 @@ class Edit extends StatelessWidget {
           title: const Text('Edit Recipe'),
         ),
         body: Create(
-            title: title,
-            instructions: instructions,
-            duration: duration.toString(),
-            ingrediantsD: ingrediants,
-            imageurl: imageurl));
+          title: recipe.title,
+          instructions: recipe.instructions,
+          duration: recipe.duration.toString(),
+          ingrediantsD: recipe.ingrediants,
+          imageurl: recipe.image,
+          groupNamesD: recipe.ingrediantGroupNames,
+        ));
   }
 }

@@ -7,12 +7,17 @@ class Ingrediant {
   final String? image;
   String? unit;
   String? amount;
+  String? groupName;
 
-  Ingrediant({required this.name, this.image, this.unit, this.amount});
+  Ingrediant(
+      {required this.name, this.image, this.unit, this.amount, this.groupName});
 
   factory Ingrediant.fromJson(Map<String, dynamic> json) {
     return Ingrediant(
-        name: json['name'], unit: json['unit'], amount: json['amount']);
+        name: json['name'],
+        unit: json['unit'],
+        amount: json['amount'],
+        groupName: json['groupName']);
   }
 
   void setUnit(String val) {
@@ -35,12 +40,13 @@ class Ingrediant {
       "unit": unit,
       "amount": amount,
       "image": image,
+      "groupName": groupName
     };
   }
 
   @override
   String toString() {
     // TODO: implement toString
-    return "name: $name, image: $image, unit: $unit: amount: $amount";
+    return "name: $name, image: $image, unit: $unit: amount: $amount, groupName: $groupName";
   }
 }

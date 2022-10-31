@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,6 +15,7 @@ class Create extends StatefulWidget {
   String? duration;
   List<Ingrediant>? ingrediantsD;
   String? imageurl;
+  List<String>? groupNamesD;
 
   Create(
       {Key? key,
@@ -23,6 +23,7 @@ class Create extends StatefulWidget {
       this.instructions,
       this.duration,
       this.ingrediantsD,
+      this.groupNamesD,
       this.imageurl = ''})
       : super(key: key);
 
@@ -36,6 +37,7 @@ class _Create extends State<Create> {
   TextEditingController intructionsController = TextEditingController();
   TextEditingController durationController = TextEditingController();
   List<Ingrediant> ingrediants = [Ingrediant(name: '')];
+  List<String> groupNames = [''];
   String imagename = '';
   Uint8List imagesrc = Uint8List(0);
   XFile? xfile;
@@ -44,6 +46,9 @@ class _Create extends State<Create> {
   void initState() {
     if (widget.ingrediantsD != null) {
       ingrediants = [...widget.ingrediantsD!];
+    }
+    if (widget.groupNamesD != null) {
+      groupNames = [...widget.groupNamesD!];
     }
 
     titleController.text = widget.title ?? '';
@@ -150,6 +155,7 @@ class _Create extends State<Create> {
                   ),
                   const SizedBox(height: 20),
                   customTextField(
+                    type: TextInputType.multiline,
                     controller: intructionsController,
                     hintText: "Give instructions to your recipe",
                     title: "Instructions",
@@ -179,14 +185,50 @@ class _Create extends State<Create> {
                     ),
                   ),
                   const SizedBox(height: 25),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        child: const Text('+ Ingrediant'),
+                        onPressed: () {
+                          setState(() {
+                            ingrediants = [
+                              ...ingrediants,
+                              Ingrediant(name: '')
+                            ];
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 25),
+                  Flexible(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: groupNames.length,
+                      itemBuilder: (context, index) {
+                        return customTextField(
+                          hintText: 'title',
+                          initValue: groupNames[index],
+                          onChanged: (i, val) {
+                            setState(() {
+                              groupNames[index] = val.toString();
+                            });
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 25),
                   TextButton(
-                    child: const Text('+ Ingrediant'),
+                    child: const Text('+ Group Name'),
                     onPressed: () {
                       setState(() {
-                        ingrediants = [...ingrediants, Ingrediant(name: '')];
+                        groupNames = [...groupNames, ''];
                       });
                     },
                   ),
+                  const SizedBox(height: 25),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
@@ -205,7 +247,8 @@ class _Create extends State<Create> {
                                 title: titleController.text,
                                 instructions: intructionsController.text,
                                 duration: int.parse(durationController.text),
-                                ingrediants: ingrediants);
+                                ingrediants: ingrediants,
+                                ingrediantGroupNames: groupNames);
                             Recipe.addRecipe(createRecipe);
                             final signedurl = await Webservice.getSignurl(
                                 titleController.text);

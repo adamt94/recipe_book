@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:recipe_book/models/ingrediant.dart';
 import 'package:recipe_book/models/recipe.dart';
 import 'package:recipe_book/screens/Create.dart';
@@ -47,13 +48,7 @@ class RecipeView extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Edit(
-                                    title: recipe.title,
-                                    duration: recipe.duration ?? 0,
-                                    instructions: recipe.instructions ?? '',
-                                    ingrediants: recipe.ingrediants,
-                                    imageurl: recipe.image,
-                                  )),
+                              builder: (context) => Edit(recipe: recipe)),
                         );
                       },
                       child: const Icon(
@@ -69,7 +64,7 @@ class RecipeView extends StatelessWidget {
                     )),
               ],
             ),
-            body: ListView(
+            body: Column(
               children: <Widget>[
                 Container(
                   color: Colors.black38,
@@ -81,8 +76,7 @@ class RecipeView extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(
-                    height: MediaQuery.of(context).size.height - 320,
+                Expanded(
                     child: Scaffold(
                         appBar: PreferredSize(
                             preferredSize: const Size.fromHeight(250),
@@ -118,7 +112,7 @@ class RecipeView extends StatelessWidget {
                                     'Ingrediants',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headlineSmall!,
+                                        .headlineSmall,
                                   ),
                                   const SizedBox(height: 10),
                                   for (var item in recipe.ingrediants ??
@@ -154,35 +148,45 @@ class RecipeView extends StatelessWidget {
                               ),
                             ),
                           ]),
-                          ListView(children: [
-                            Padding(
-                              padding: const EdgeInsets.all(20.0),
+                          Padding(
+                              padding: const EdgeInsets.all(15),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    recipe.title,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall!,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    recipe.instructions ?? '',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                            color: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium!
-                                                .color!
-                                                .withOpacity(0.7)),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ]),
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 10),
+                                        child: Text(
+                                          recipe.title,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!,
+                                        )),
+                                    Padding(
+                                        padding: const EdgeInsets.only(left: 5),
+                                        child: MarkdownBody(
+                                          styleSheet: MarkdownStyleSheet(
+                                              h1: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .primaryColor),
+                                              h2: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .primaryColor),
+                                              h3: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .primaryColor),
+                                              h4: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .primaryColor),
+                                              h5: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .primaryColor),
+                                              h6: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .primaryColor)),
+                                          data: recipe.instructions ?? '',
+                                        ))
+                                  ])),
                         ]))),
               ],
             ),
