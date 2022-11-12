@@ -28,6 +28,10 @@ class Ingrediant {
     amount = val;
   }
 
+  void setGroupName(String val) {
+    groupName = val;
+  }
+
   static List<Ingrediant> fromJsonList(String jsondata) {
     final result = json.decode(jsondata);
     Iterable list = result;

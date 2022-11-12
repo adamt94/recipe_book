@@ -41,14 +41,16 @@ class _Create extends State<Create> {
   String imagename = '';
   Uint8List imagesrc = Uint8List(0);
   XFile? xfile;
+  String dropdownValue = '';
 
   @override
   void initState() {
     if (widget.ingrediantsD != null) {
       ingrediants = [...widget.ingrediantsD!];
     }
-    if (widget.groupNamesD != null) {
+    if (widget.groupNamesD != null && widget.groupNamesD!.isNotEmpty) {
       groupNames = [...widget.groupNamesD!];
+      dropdownValue = groupNames.first;
     }
 
     titleController.text = widget.title ?? '';
@@ -116,6 +118,28 @@ class _Create extends State<Create> {
                   },
                 )),
           ),
+          if (groupNames.isNotEmpty)
+            Flexible(
+                child: Padding(
+                    padding: const EdgeInsets.all(0),
+                    child: DropdownButton<String>(
+                      value: ingrediants[index].groupName != null
+                          ? ingrediants[index].groupName!.toLowerCase()
+                          : null,
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          ingrediants[index].setGroupName(value!);
+                        });
+                      },
+                      items: groupNames
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value.toLowerCase(),
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ))),
         ],
       );
     }

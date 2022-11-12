@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -22,6 +23,69 @@ class RecipeView extends StatelessWidget {
       child: Text('Instructions'),
     ),
   ];
+
+  List<Widget> listIngrediants(BuildContext context) {
+    List<Widget> ingradiantsList = [];
+
+    for (var ingrediantGroup in recipe.ingrediantGroupNames!.isEmpty
+        ? ['']
+        : recipe.ingrediantGroupNames ?? []) {
+      ingradiantsList.add(Text(ingrediantGroup,
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(fontWeight: FontWeight.w500)));
+      for (var item in recipe.ingrediants ?? []) {
+        if (item.groupName.toString().toLowerCase() ==
+            ingrediantGroup.toString().toLowerCase()) {
+          ingradiantsList.add(
+            ListTile(
+                dense: true,
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+                visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+                leading: Text(item.name,
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).primaryColor)),
+                title: Text('${item.amount} ${item.unit}',
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.color
+                            ?.withOpacity(0.7)))),
+          );
+        }
+      }
+    }
+    for (var item in recipe.ingrediants ?? []) {
+      if (item.groupName == '' || item.groupName == null) {
+        ingradiantsList.add(
+          ListTile(
+              dense: true,
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+              visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+              leading: Text(item.name,
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: Theme.of(context).primaryColor)),
+              title: Text('${item.amount} ${item.unit}',
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.color
+                          ?.withOpacity(0.7)))),
+        );
+      }
+    }
+
+    return ingradiantsList;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +159,7 @@ class RecipeView extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                padding: EdgeInsets.all(0),
+                                padding: const EdgeInsets.all(0),
                                 child: SafeArea(
                                     child: TabBar(
                                   indicatorColor: Theme.of(context).canvasColor,
@@ -106,87 +170,50 @@ class RecipeView extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    'Ingrediants',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  for (var item in recipe.ingrediants ??
-                                      [
-                                        Ingrediant(name: 'no ingrediants found')
-                                      ])
-                                    ListTile(
-                                        dense: true,
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                horizontal: 10.0,
-                                                vertical: 0.0),
-                                        visualDensity: const VisualDensity(
-                                            horizontal: 0, vertical: -4),
-                                        leading: Text(item.name,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleMedium!
-                                                .copyWith(
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Theme.of(context)
-                                                        .primaryColor)),
-                                        title: Text(
-                                            '${item.amount} ${item.unit}',
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                color: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge
-                                                    ?.color
-                                                    ?.withOpacity(0.7)))),
-                                ],
-                              ),
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      'Ingrediants',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    ...listIngrediants(context),
+                                  ]),
                             ),
                           ]),
-                          Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 10),
-                                        child: Text(
-                                          recipe.title,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall!,
-                                        )),
-                                    Padding(
-                                        padding: const EdgeInsets.only(left: 5),
-                                        child: MarkdownBody(
-                                          styleSheet: MarkdownStyleSheet(
-                                              h1: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColor),
-                                              h2: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColor),
-                                              h3: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColor),
-                                              h4: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColor),
-                                              h5: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColor),
-                                              h6: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColor)),
-                                          data: recipe.instructions ?? '',
-                                        ))
-                                  ])),
+                          ListView(children: [
+                            Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      MarkdownBody(
+                                        styleSheet: MarkdownStyleSheet(
+                                            h1: TextStyle(
+                                                color: Theme.of(context)
+                                                    .primaryColor),
+                                            h2: TextStyle(
+                                                color: Theme.of(context)
+                                                    .primaryColor),
+                                            h3: TextStyle(
+                                                color: Theme.of(context)
+                                                    .primaryColor),
+                                            h4: TextStyle(
+                                                color: Theme.of(context)
+                                                    .primaryColor),
+                                            h5: TextStyle(
+                                                color: Theme.of(context)
+                                                    .primaryColor),
+                                            h6: TextStyle(
+                                                color: Theme.of(context)
+                                                    .primaryColor)),
+                                        data: recipe.instructions ?? '',
+                                      )
+                                    ]))
+                          ]),
                         ]))),
               ],
             ),
