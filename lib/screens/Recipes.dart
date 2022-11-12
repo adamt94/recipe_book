@@ -1,10 +1,6 @@
-import 'dart:developer';
-
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_book/screens/details/details.dart';
-import 'package:recipe_book/widgets/recipeView.dart';
-import 'package:recipe_book/screens/OpenContainerTransformDemo.dart';
 import 'package:recipe_book/widgets/recipeCard.dart';
 import 'package:web_smooth_scroll/web_smooth_scroll.dart';
 import '../models/recipe.dart';

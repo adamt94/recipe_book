@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 import '../../../models/recipe.dart';
 import 'food_qunaity.dart';
 
 class FoodDetail extends StatelessWidget {
   final Recipe? recipe;
-  FoodDetail({this.recipe});
+  final Widget? widget;
+  final String? title;
+  FoodDetail({this.recipe, this.widget, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -46,57 +49,23 @@ class FoodDetail extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 39,
             ),
-            FoodQuantity(recipe: recipe),
-            SizedBox(
+            const SizedBox(
               height: 39,
-            ),
-            Row(
-              children: [
-                Text(
-                  'Ingredienta',
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-                )
-              ],
-            ),
-            SizedBox(height: 10),
-            Container(
-              height: 100,
-              child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(40),
-                        ),
-                        child: Column(
-                          children: [
-                            Text(recipe!.ingrediants![index].name),
-                          ],
-                        ),
-                      ),
-                  separatorBuilder: (_, index) => SizedBox(
-                        width: 15,
-                      ),
-                  itemCount: recipe!.ingrediants!.length),
             ),
             SizedBox(height: 30),
             Row(
-              children: [
+              children:  [
                 Text(
-                  'About',
+                  title!,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                 ),
               ],
             ),
-            SizedBox(height: 10),
-            Text(
-              recipe!.instructions!,
-              style: TextStyle(fontSize: 16, wordSpacing: 1.2, height: 1.5),
-            ),
+            const SizedBox(height: 10),
+           Container(child: widget),
             SizedBox(height: 20),
           ],
         ));
@@ -111,7 +80,7 @@ class FoodDetail extends StatelessWidget {
         ),
         Text(
           text,
-          style: TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16),
         ),
       ],
     );

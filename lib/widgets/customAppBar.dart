@@ -17,11 +17,6 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-        image: Image.network(recipeImage).image,
-        fit: BoxFit.cover,
-      )),
       padding: EdgeInsets.only(
           top: MediaQuery.of(context).padding.top, left: 25, right: 25),
       child: Row(
