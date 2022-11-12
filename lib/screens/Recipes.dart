@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe_book/screens/details/details.dart';
 import 'package:recipe_book/widgets/recipeView.dart';
 import 'package:recipe_book/screens/OpenContainerTransformDemo.dart';
 import 'package:recipe_book/widgets/recipeCard.dart';
@@ -26,7 +27,7 @@ class _OpenContainerWrapper extends StatelessWidget {
     return OpenContainer<bool>(
       transitionType: transitionType,
       openBuilder: (BuildContext context, Function _) {
-        return RecipeView(
+        return DetailPage(
           recipe: recipe,
         );
       },
