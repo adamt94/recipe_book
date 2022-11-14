@@ -10,23 +10,23 @@ class FoodDetail extends StatelessWidget {
   final Recipe? recipe;
   final Widget? widget;
   final String? title;
-  FoodDetail({this.recipe, this.widget, this.title});
+  const FoodDetail({super.key, this.recipe, this.widget, this.title});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(25),
+        padding: const EdgeInsets.all(25),
         color: Theme.of(context).backgroundColor,
         child: Column(
           children: [
             Text(
               recipe!.title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 22,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Row(
@@ -55,18 +55,18 @@ class FoodDetail extends StatelessWidget {
             const SizedBox(
               height: 39,
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Row(
               children:  [
                 Text(
                   title!,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                 ),
               ],
             ),
             const SizedBox(height: 10),
            Container(child: widget),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ));
   }

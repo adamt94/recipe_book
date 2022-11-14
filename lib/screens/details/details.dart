@@ -7,6 +7,7 @@ import 'package:recipe_book/screens/details/widget/instructions_list.dart';
 
 import '../../models/recipe.dart';
 import '../../widgets/customAppBar.dart';
+import '../Edit.dart';
 
 
 class DetailPage extends StatefulWidget {
@@ -59,8 +60,13 @@ class DetailPageState extends State<DetailPage> {
               CustomAppBar(
                 recipeImage: widget.recipe.image!,
                 leftIcon: Icons.arrow_back,
-                rightIcon: Icons.favorite_outline,
+                rightIcon: Icons.edit,
                 leftCallback: () => Navigator.pop(context),
+                rightCallback: ()=>{  Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Edit(recipe: widget.recipe)),
+                        )},
               ),
               FoodImg(
                 recipe: widget.recipe,
