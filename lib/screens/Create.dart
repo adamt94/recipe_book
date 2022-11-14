@@ -71,12 +71,12 @@ class _Create extends State<Create> {
       return Row(
         children: [
           Expanded(
-            flex: 4,
+            flex: 5,
             child: Padding(
-                padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
+                padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
                 child: customTextField(
                   hintText: 'ingrediant',
-                  lrPadding: 10,
+                  lrPadding: 5,
                   initValue: ingrediant.name,
                   index: index,
                   onChanged: (i, val) {
@@ -84,14 +84,14 @@ class _Create extends State<Create> {
                   },
                 )),
           ),
-          Expanded(
-            flex: 1,
+          SizedBox(
+            width: 80,
             child: Padding(
                 padding: const EdgeInsets.all(0),
                 child: customTextField(
                   validator: false,
                   hintText: 'amount',
-                  lrPadding: 10,
+                  lrPadding: 5,
                   initValue: ingrediant.amount,
                   index: index,
                   onChanged: (i, val) {
@@ -101,14 +101,14 @@ class _Create extends State<Create> {
                   },
                 )),
           ),
-          Expanded(
-            flex: 2,
+          SizedBox(
+            width: 150,
             child: Padding(
                 padding: const EdgeInsets.all(0),
                 child: customTextField(
                   validator: false,
                   hintText: 'unit',
-                  lrPadding: 10,
+                  lrPadding: 5,
                   initValue: ingrediant.unit,
                   index: index,
                   onChanged: (i, val) {
@@ -119,7 +119,7 @@ class _Create extends State<Create> {
                 )),
           ),
           if (groupNames.isNotEmpty)
-            Flexible(
+            IntrinsicWidth(
                 child: Padding(
                     padding: const EdgeInsets.all(0),
                     child: DropdownButton<String>(
@@ -231,15 +231,17 @@ class _Create extends State<Create> {
                       shrinkWrap: true,
                       itemCount: groupNames.length,
                       itemBuilder: (context, index) {
-                        return customTextField(
-                          hintText: 'title',
-                          initValue: groupNames[index],
-                          onChanged: (i, val) {
-                            setState(() {
-                              groupNames[index] = val.toString();
-                            });
-                          },
-                        );
+                        return Padding(
+                            padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
+                            child: customTextField(
+                              hintText: 'title',
+                              initValue: groupNames[index],
+                              onChanged: (i, val) {
+                                setState(() {
+                                  groupNames[index] = val.toString();
+                                });
+                              },
+                            ));
                       },
                     ),
                   ),
