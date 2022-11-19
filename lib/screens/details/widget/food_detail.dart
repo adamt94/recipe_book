@@ -16,7 +16,7 @@ class FoodDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(25),
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.surface,
         child: Column(
           children: [
             Text(
@@ -34,12 +34,12 @@ class FoodDetail extends StatelessWidget {
               children: [
                 _buildIconText(
                   Icons.access_time_outlined,
-                  Colors.blue,
+                  null,
                   recipe!.duration.toString()!,
                 ),
                 _buildIconText(
                   Icons.star_outlined,
-                  Colors.amber,
+                  null,
                   recipe!.duration!.toString(),
                 ),
                 _buildIconText(
@@ -57,26 +57,28 @@ class FoodDetail extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             Row(
-              children:  [
+              children: [
                 Text(
                   title!,
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontWeight: FontWeight.w600),
                 ),
               ],
             ),
             const SizedBox(height: 10),
-           Container(child: widget),
+            Container(child: widget),
             const SizedBox(height: 20),
           ],
         ));
   }
 
-  _buildIconText(IconData icon, Color color, String text) {
+  _buildIconText(IconData icon, Color? color, String text) {
     return Row(
       children: [
         Icon(
           icon,
-          color: color,
+          color: color ?? null,
         ),
         Text(
           text,

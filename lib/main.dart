@@ -10,43 +10,57 @@ import 'package:recipe_book/util/resource.dart';
 import 'models/recipe.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  MyApp({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<MyApp> createState() => App();
+}
+
+class App extends State<MyApp> {
+  late bool lightTheme;
+
+  @override
+  void initState() {
+    super.initState();
+    lightTheme = true;
+  }
+
+  void setTheme() {
+    lightTheme = !lightTheme;
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Recipe book',
+      themeMode: lightTheme == true ? ThemeMode.light : ThemeMode.dark,
       theme: ThemeData(
-          textTheme: const TextTheme(),
-          // Brightness.dark/light is estimated based on the default shade for the color
-          // This also sets the bool primaryIsDark
-          // primaryColorBrightness = estimateBrightnessForColor(primarySwatch);
-          // This generates the modern simplified set of theme colors flutter recommends
-          // using when theming Widgets based on the theme. Set it manually if you need
-          // more control over individual colors
-          // colorScheme = ColorScheme.fromSwatch(
-          //       primarySwatch: primarySwatch, // as above
-          //       primaryColorDark: primaryColorDark, // as above
-          //       accentColor: accentColor, // as above
-          //       cardColor: cardColor, // default based on theme brightness, can be set manually
-          //       backgroundColor: backgroundColor, // as above
-          //       errorColor: errorColor, // default (Colors.red[700]), can be set manually
-          //       brightness: brightness, // default (Brightness.light), can be set manually
-          //     );
+          colorScheme: ColorScheme.fromSeed(
+              brightness: Brightness.light, seedColor: Colors.indigo),
+          iconTheme: const IconThemeData(color: Colors.indigo),
           backgroundColor: const Color.fromRGBO(247, 247, 247, 1),
           primarySwatch: Colors.indigo),
-      home: const MyHomePage(title: 'Recipe Book'),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+            brightness: Brightness.dark, seedColor: Colors.indigo),
+        iconTheme:
+            const IconThemeData(color: Color.fromARGB(255, 140, 156, 243)),
+        brightness: Brightness.dark,
+      ),
+      home: MyHomePage(title: 'Recipe Book', themeToggle: setTheme),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.title, required this.themeToggle});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -58,6 +72,8 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   final String title;
+
+  final Function themeToggle;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -120,9 +136,20 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
     return Scaffold(
       appBar: AppBar(
-        title:  Text(widget.title, style: TextStyle(color: Theme.of(context).primaryColor),),
+        title: Text(
+          widget.title,
+          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+        ),
         elevation: 0,
         backgroundColor: Colors.transparent,
+        actions: [
+          IconButton(
+              icon: Icon(Icons.sunny,
+                  color: Theme.of(context).colorScheme.inverseSurface),
+              onPressed: () {
+                widget.themeToggle();
+              })
+        ],
       ),
       body: screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

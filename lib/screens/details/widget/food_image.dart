@@ -27,7 +27,7 @@ class FoodImg extends StatelessWidget {
                       topLeft: Radius.circular(50),
                       topRight: Radius.circular(50),
                     ),
-                    color: Theme.of(context).backgroundColor,
+                    color: Theme.of(context).colorScheme.surface,
                   ),
                 ),
               )

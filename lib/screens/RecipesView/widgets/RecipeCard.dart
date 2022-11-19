@@ -26,7 +26,7 @@ class RecipeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8 ),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
       width: screenSize(context).width * 0.4,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
@@ -63,7 +63,10 @@ class RecipeCard extends StatelessWidget {
                   Flexible(
                       child: Text(
                     title,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(fontWeight: FontWeight.w500),
                   )),
                 ],
               ),
@@ -78,13 +81,13 @@ class RecipeCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                       Icon(Icons.schedule, color: Theme.of(context).primaryColor),
+                      const Icon(Icons.schedule),
                       const SizedBox(
                         width: 5,
                       ),
                       Text(
                         duration,
-                        style: const TextStyle(color: Colors.black45),
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ],
                   ),

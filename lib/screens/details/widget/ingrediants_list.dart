@@ -5,7 +5,7 @@ import '../../../models/recipe.dart';
 
 class IngrediantsText extends StatelessWidget {
   final Recipe? recipe;
-   const IngrediantsText({super.key, this.recipe});
+  const IngrediantsText({super.key, this.recipe});
 
   List<Widget> listIngrediants(BuildContext context) {
     List<Widget> ingradiantsList = [];
@@ -14,11 +14,10 @@ class IngrediantsText extends StatelessWidget {
         ? ['']
         : recipe!.ingrediantGroupNames ?? []) {
       ingradiantsList.add(Text(ingrediantGroup,
-      textAlign:TextAlign.left,
-          style: Theme.of(context)
-              .textTheme
-              .titleLarge!
-              .copyWith(fontWeight: FontWeight.w500)));
+          textAlign: TextAlign.left,
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+              fontWeight: FontWeight.w500,
+              color: Theme.of(context).colorScheme.primary)));
       for (var item in recipe!.ingrediants ?? []) {
         if (item.groupName.toString().toLowerCase() ==
             ingrediantGroup.toString().toLowerCase()) {
@@ -30,8 +29,8 @@ class IngrediantsText extends StatelessWidget {
                 visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
                 leading: Text(item.name,
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).primaryColor)),
+                          fontWeight: FontWeight.w500,
+                        )),
                 title: Text('${item.amount} ${item.unit}',
                     style: TextStyle(
                         fontSize: 15,
@@ -71,11 +70,10 @@ class IngrediantsText extends StatelessWidget {
     return ingradiantsList;
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return  Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [  ...listIngrediants(context)]);
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [...listIngrediants(context)]);
   }
 }

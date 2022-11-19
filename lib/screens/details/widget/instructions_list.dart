@@ -10,27 +10,15 @@ class InstructionsText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MarkdownBody(
-            styleSheet: MarkdownStyleSheet(
-                h1: TextStyle(
-                    color: Theme.of(context)
-                        .primaryColor),
-                h2: TextStyle(
-                    color: Theme.of(context)
-                        .primaryColor),
-                h3: TextStyle(
-                    color: Theme.of(context)
-                        .primaryColor),
-                h4: TextStyle(
-                    color: Theme.of(context)
-                        .primaryColor),
-                h5: TextStyle(
-                    color: Theme.of(context)
-                        .primaryColor),
-                h6: TextStyle(
-                    color: Theme.of(context)
-                        .primaryColor)),
-            data: recipe!.instructions ?? '',
-      );
+    return MarkdownBody(
+      styleSheet: MarkdownStyleSheet(
+          h1: TextStyle(color: Theme.of(context).colorScheme.primary),
+          h2: TextStyle(color: Theme.of(context).colorScheme.primary),
+          h3: TextStyle(color: Theme.of(context).colorScheme.primary),
+          h4: TextStyle(color: Theme.of(context).colorScheme.primary),
+          h5: TextStyle(color: Theme.of(context).colorScheme.primary),
+          h6: TextStyle(color: Theme.of(context).colorScheme.primary)),
+      data: recipe!.instructions ?? '',
+    );
   }
 }
