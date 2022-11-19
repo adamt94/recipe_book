@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe_book/screens/details/details.dart';
 
 import '../../../models/recipe.dart';
 
@@ -9,12 +10,14 @@ class RecipeCard extends StatelessWidget {
       {Key? key,
       required this.duration,
       required this.title,
-      required this.image})
+      required this.image,
+      required this.child})
       : super(key: key);
 
   String duration;
   String title;
   String image;
+  Widget child;
   Size screenSize(BuildContext context) {
     return MediaQuery.of(context).size;
   }
@@ -22,8 +25,8 @@ class RecipeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8 ),
       width: screenSize(context).width * 0.4,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
@@ -42,10 +45,10 @@ class RecipeCard extends StatelessWidget {
         closedBuilder: (context, action) => Column(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(20),
               child: Image(
-                  height: 110,
-                  width: screenSize(context).width * 0.4,
+                  height: 150,
+                  width: screenSize(context).width * 0.5,
                   fit: BoxFit.cover,
                   image: Image.network(image).image),
             ),
@@ -75,7 +78,7 @@ class RecipeCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.location_on, color: Colors.black45),
+                       Icon(Icons.schedule, color: Theme.of(context).primaryColor),
                       const SizedBox(
                         width: 5,
                       ),
@@ -92,7 +95,7 @@ class RecipeCard extends StatelessWidget {
         ),
         openBuilder: (BuildContext context,
             void Function({Object? returnValue}) action) {
-          return Text('testing');
+          return child;
         },
       ),
     );

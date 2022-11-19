@@ -4,36 +4,6 @@ import 'package:recipe_book/screens/details/details.dart';
 import 'package:recipe_book/screens/RecipesView/widgets/RecipeCard.dart';
 import 'package:web_smooth_scroll/web_smooth_scroll.dart';
 import '../../models/recipe.dart';
-
-class _OpenContainerWrapper extends StatelessWidget {
-  const _OpenContainerWrapper({
-    required this.closedBuilder,
-    required this.transitionType,
-    required this.onClosed,
-    required this.recipe,
-  });
-
-  final CloseContainerBuilder closedBuilder;
-  final ContainerTransitionType transitionType;
-  final ClosedCallback<bool?> onClosed;
-  final Recipe recipe;
-
-  @override
-  Widget build(BuildContext context) {
-    return OpenContainer<bool>(
-      transitionType: transitionType,
-      openBuilder: (BuildContext context, Function _) {
-        return DetailPage(
-          recipe: recipe,
-        );
-      },
-      onClosed: onClosed,
-      tappable: false,
-      closedBuilder: closedBuilder,
-    );
-  }
-}
-
 class Recipes extends StatelessWidget {
   Recipes({Key? key, required this.recipes, required this.scrollController})
       : super(key: key);
@@ -69,7 +39,7 @@ class Recipes extends StatelessWidget {
       return 3;
     }
 
-    if (MediaQuery.of(context).size.width > 420) {
+    if (MediaQuery.of(context).size.width > 220) {
       return 2;
     }
 
@@ -84,7 +54,7 @@ class Recipes extends StatelessWidget {
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
     return GridView.count(
-        childAspectRatio: 0.9,
+        childAspectRatio: 0.65,
         shrinkWrap: true,
         controller: ScrollController(keepScrollOffset: false),
         physics: const BouncingScrollPhysics(),
@@ -95,6 +65,7 @@ class Recipes extends StatelessWidget {
               duration: item.duration.toString(),
               title: item.title,
               image: item.image ?? '',
+              child: DetailPage(recipe: item)
             )
         ]);
   }
