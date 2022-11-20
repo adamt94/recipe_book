@@ -68,80 +68,84 @@ class _Create extends State<Create> {
     }
 
     _row(int index, Ingrediant ingrediant) {
-      return Row(
-        children: [
-          Expanded(
-            flex: 5,
-            child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                child: customTextField(
-                  hintText: 'ingrediant',
-                  lrPadding: 5,
-                  initValue: ingrediant.name,
-                  index: index,
-                  onChanged: (i, val) {
-                    onUpdate(i, val);
-                  },
-                )),
-          ),
-          SizedBox(
-            width: 80,
-            child: Padding(
-                padding: const EdgeInsets.all(0),
-                child: customTextField(
-                  validator: false,
-                  hintText: 'amount',
-                  lrPadding: 5,
-                  initValue: ingrediant.amount,
-                  index: index,
-                  onChanged: (i, val) {
-                    if (i < ingrediants.length) {
-                      ingrediants[i].setAmount(val);
-                    }
-                  },
-                )),
-          ),
-          SizedBox(
-            width: 150,
-            child: Padding(
-                padding: const EdgeInsets.all(0),
-                child: customTextField(
-                  validator: false,
-                  hintText: 'unit',
-                  lrPadding: 5,
-                  initValue: ingrediant.unit,
-                  index: index,
-                  onChanged: (i, val) {
-                    if (i < ingrediants.length) {
-                      ingrediants[i].setUnit(val);
-                    }
-                  },
-                )),
-          ),
-          if (groupNames.isNotEmpty)
-            IntrinsicWidth(
-                child: Padding(
-                    padding: const EdgeInsets.all(0),
-                    child: DropdownButton<String>(
-                      value: ingrediants[index].groupName != null
-                          ? ingrediants[index].groupName!.toLowerCase()
-                          : null,
-                      onChanged: (String? value) {
-                        // This is called when the user selects an item.
-                        setState(() {
-                          ingrediants[index].setGroupName(value!);
-                        });
-                      },
-                      items: groupNames
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value.toLowerCase(),
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ))),
-        ],
-      );
+      return Column(children: [
+        Container(
+          child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+              child: customTextField(
+                hintText: 'ingrediant',
+                lrPadding: 5,
+                initValue: ingrediant.name,
+                index: index,
+                onChanged: (i, val) {
+                  onUpdate(i, val);
+                },
+              )),
+        ),
+        Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: Padding(
+                  padding: const EdgeInsets.all(0),
+                  child: customTextField(
+                    validator: false,
+                    hintText: 'amount',
+                    lrPadding: 5,
+                    initValue: ingrediant.amount,
+                    index: index,
+                    onChanged: (i, val) {
+                      if (i < ingrediants.length) {
+                        ingrediants[i].setAmount(val);
+                      }
+                    },
+                  )),
+            ),
+            Expanded(
+              flex: 3,
+              child: Padding(
+                  padding: const EdgeInsets.all(0),
+                  child: customTextField(
+                    validator: false,
+                    hintText: 'unit',
+                    lrPadding: 5,
+                    initValue: ingrediant.unit,
+                    index: index,
+                    onChanged: (i, val) {
+                      if (i < ingrediants.length) {
+                        ingrediants[i].setUnit(val);
+                      }
+                    },
+                  )),
+            ),
+            if (groupNames.isNotEmpty)
+              IntrinsicWidth(
+                  child: Padding(
+                      padding: const EdgeInsets.all(0),
+                      child: DropdownButton<String>(
+                        value: ingrediants[index].groupName != null
+                            ? ingrediants[index].groupName!.toLowerCase()
+                            : null,
+                        onChanged: (String? value) {
+                          // This is called when the user selects an item.
+                          setState(() {
+                            ingrediants[index].setGroupName(value!);
+                          });
+                        },
+                        items: groupNames
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value.toLowerCase(),
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ))),
+          ],
+        ),
+        const SizedBox(
+          height: 40,
+        )
+      ]);
     }
 
     void setImageSrc(Uint8List src) {
