@@ -28,7 +28,6 @@ class App extends State<MyApp> {
   bool useLightMode = true;
   int colorSelected = 0;
   int screenIndex = 0;
-  late ThemeData themeData;
   ColorScheme light = ColorScheme.fromSeed(
       seedColor: const Color(0xff6750a4), brightness: Brightness.light);
   ColorScheme dark = ColorScheme.fromSeed(
@@ -36,16 +35,12 @@ class App extends State<MyApp> {
 
   @override
   void initState() {
-    themeData =
-        updateThemes(useLightMode ? light : dark, useMaterial3, useLightMode);
     super.initState();
   }
 
   void handleBrightnessChange() {
     setState(() {
       useLightMode = !useLightMode;
-      themeData =
-          updateThemes(useLightMode ? light : dark, useMaterial3, useLightMode);
     });
   }
 
@@ -61,30 +56,21 @@ class App extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return DynamicColorBuilder(builder: (lightColorScheme, darkColorScheme) {
-      if (useLightMode == true && lightColorScheme != null) {
-         return MaterialApp(
-        title: 'Recipe book',
-        themeMode: useLightMode ? ThemeMode.light : ThemeMode.dark,
-        theme: ThemeData(colorScheme: lightColorScheme, useMaterial3: useMaterial3),
-        home: MyHomePage(
-            title: 'Recipe Book', toggleBrightness: handleBrightnessChange),
-      );
-      } else if (useLightMode == false && darkColorScheme != null) {
-       return MaterialApp(
-        title: 'Recipe book',
-        themeMode: useLightMode ? ThemeMode.light : ThemeMode.dark,
-        theme: ThemeData(colorScheme: darkColorScheme, useMaterial3: useMaterial3),
-        home: MyHomePage(
-            title: 'Recipe Book', toggleBrightness: handleBrightnessChange),
-      );
-      }
-
       return MaterialApp(
         title: 'Recipe book',
         themeMode: useLightMode ? ThemeMode.light : ThemeMode.dark,
-        theme: themeData,
+        theme: useLightMode
+            ? ThemeData(
+                colorScheme: lightColorScheme ?? light,
+                useMaterial3: useMaterial3)
+            : ThemeData(
+                colorScheme: darkColorScheme ?? dark,
+                useMaterial3: useMaterial3),
         home: MyHomePage(
-            title: 'Recipe Book', toggleBrightness: handleBrightnessChange),
+            title: 'Recipe Book',
+            toggleBrightness: handleBrightnessChange,
+            light: lightColorScheme,
+            dark: darkColorScheme),
       );
     });
   }
@@ -92,7 +78,11 @@ class App extends State<MyApp> {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage(
-      {super.key, required this.title, required this.toggleBrightness});
+      {super.key,
+      required this.title,
+      required this.toggleBrightness,
+      required this.light,
+      required this.dark});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -106,6 +96,9 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   final Function toggleBrightness;
+
+  final ColorScheme? light;
+  final ColorScheme? dark;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
