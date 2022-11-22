@@ -62,13 +62,21 @@ class App extends State<MyApp> {
   Widget build(BuildContext context) {
     return DynamicColorBuilder(builder: (lightColorScheme, darkColorScheme) {
       if (useLightMode == true && lightColorScheme != null) {
-        setState(() {
-          updateThemes(lightColorScheme, useMaterial3, useLightMode);
-        });
+         return MaterialApp(
+        title: 'Recipe book',
+        themeMode: useLightMode ? ThemeMode.light : ThemeMode.dark,
+        theme: ThemeData(colorScheme: lightColorScheme, useMaterial3: useMaterial3),
+        home: MyHomePage(
+            title: 'Recipe Book', toggleBrightness: handleBrightnessChange),
+      );
       } else if (useLightMode == false && darkColorScheme != null) {
-        setState(() {
-          updateThemes(darkColorScheme, useMaterial3, useLightMode);
-        });
+       return MaterialApp(
+        title: 'Recipe book',
+        themeMode: useLightMode ? ThemeMode.light : ThemeMode.dark,
+        theme: ThemeData(colorScheme: darkColorScheme, useMaterial3: useMaterial3),
+        home: MyHomePage(
+            title: 'Recipe Book', toggleBrightness: handleBrightnessChange),
+      );
       }
 
       return MaterialApp(
