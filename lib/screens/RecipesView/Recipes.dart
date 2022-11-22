@@ -55,7 +55,7 @@ class Recipes extends StatelessWidget {
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
     return GridView.count(
-        childAspectRatio: 0.65,
+        childAspectRatio: 0.55,
         shrinkWrap: true,
         controller: ScrollController(keepScrollOffset: false),
         physics: const BouncingScrollPhysics(),
