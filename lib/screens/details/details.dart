@@ -9,15 +9,14 @@ import '../../models/recipe.dart';
 import '../../widgets/customAppBar.dart';
 import '../Edit.dart';
 
-
 class DetailPage extends StatefulWidget {
-
   final Recipe recipe;
   const DetailPage({super.key, required this.recipe});
 
   @override
   State<DetailPage> createState() => DetailPageState();
 }
+
 class DetailPageState extends State<DetailPage> {
   int _selectedIndex = 0;
 
@@ -27,33 +26,31 @@ class DetailPageState extends State<DetailPage> {
     });
   }
 
-  Widget getFoodDetailsWidget(Recipe recipe,String title, Widget widget){
-    
-            return FoodDetail(
-                recipe: recipe,
-                title: title,
-                widget: widget,
-              );
+  Widget getFoodDetailsWidget(Recipe recipe, String title, Widget widget) {
+    return FoodDetail(
+      recipe: recipe,
+      title: title,
+      widget: widget,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex,
-        onTap: onItemTapped,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'Instructions',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book),
-            label: 'Instructions',
-          )
-        ],
-      ),
+          onTap: onItemTapped,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.list),
+              label: 'Instructions',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.menu_book),
+              label: 'Instructions',
+            )
+          ],
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -62,16 +59,23 @@ class DetailPageState extends State<DetailPage> {
                 leftIcon: Icons.arrow_back,
                 rightIcon: Icons.edit,
                 leftCallback: () => Navigator.pop(context),
-                rightCallback: ()=>{  Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Edit(recipe: widget.recipe)),
-                        )},
+                rightCallback: () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Edit(recipe: widget.recipe)),
+                  )
+                },
               ),
               FoodImg(
                 recipe: widget.recipe,
               ),
-              getFoodDetailsWidget(widget.recipe,_selectedIndex == 0? 'Ingrediants': 'Instructions',_selectedIndex == 0?IngrediantsText(recipe: widget.recipe): InstructionsText(recipe : widget.recipe) )
+              getFoodDetailsWidget(
+                  widget.recipe,
+                  _selectedIndex == 0 ? 'Ingrediants' : 'Instructions',
+                  _selectedIndex == 0
+                      ? IngrediantsText(recipe: widget.recipe)
+                      : InstructionsText(recipe: widget.recipe))
             ],
           ),
         ));

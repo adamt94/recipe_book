@@ -23,16 +23,30 @@ class MyApp extends StatefulWidget {
 }
 
 class App extends State<MyApp> {
-  late bool lightTheme;
+  bool useMaterial3 = true;
+  bool useLightMode = true;
+  int colorSelected = 0;
+  int screenIndex = 0;
+  late ThemeData themeData;
 
   @override
   void initState() {
+    themeData = updateThemes(colorSelected, useMaterial3, useLightMode);
     super.initState();
-    lightTheme = true;
   }
 
-  void setTheme() {
-    lightTheme = !lightTheme;
+  void handleBrightnessChange() {
+    setState(() {
+      useLightMode = !useLightMode;
+      themeData = updateThemes(colorSelected, useMaterial3, useLightMode);
+    });
+  }
+
+  ThemeData updateThemes(int colorIndex, bool useMaterial3, bool useLightMode) {
+    return ThemeData(
+        colorSchemeSeed: Color(0xff6750a4),
+        useMaterial3: useMaterial3,
+        brightness: useLightMode ? Brightness.light : Brightness.dark);
   }
 
   // This widget is the root of your application.
@@ -40,27 +54,17 @@ class App extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Recipe book',
-      themeMode: lightTheme == true ? ThemeMode.light : ThemeMode.dark,
-      theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-              brightness: Brightness.light, seedColor: Colors.indigo),
-          iconTheme: const IconThemeData(color: Colors.indigo),
-          backgroundColor: const Color.fromRGBO(247, 247, 247, 1),
-          primarySwatch: Colors.indigo),
-      darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-            brightness: Brightness.dark, seedColor: Colors.indigo),
-        iconTheme:
-            const IconThemeData(color: Color.fromARGB(255, 140, 156, 243)),
-        brightness: Brightness.dark,
-      ),
-      home: MyHomePage(title: 'Recipe Book', themeToggle: setTheme),
+      themeMode: useLightMode ? ThemeMode.light : ThemeMode.dark,
+      theme: themeData,
+      home: MyHomePage(
+          title: 'Recipe Book', toggleBrightness: handleBrightnessChange),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title, required this.themeToggle});
+  const MyHomePage(
+      {super.key, required this.title, required this.toggleBrightness});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -73,7 +77,7 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
-  final Function themeToggle;
+  final Function toggleBrightness;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -147,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icon(Icons.sunny,
                   color: Theme.of(context).colorScheme.inverseSurface),
               onPressed: () {
-                widget.themeToggle();
+                widget.toggleBrightness();
               })
         ],
       ),

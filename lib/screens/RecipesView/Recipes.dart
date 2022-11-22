@@ -4,6 +4,7 @@ import 'package:recipe_book/screens/details/details.dart';
 import 'package:recipe_book/screens/RecipesView/widgets/RecipeCard.dart';
 import 'package:web_smooth_scroll/web_smooth_scroll.dart';
 import '../../models/recipe.dart';
+
 class Recipes extends StatelessWidget {
   Recipes({Key? key, required this.recipes, required this.scrollController})
       : super(key: key);
@@ -62,11 +63,10 @@ class Recipes extends StatelessWidget {
         children: <Widget>[
           for (var item in recipes)
             RecipeCard(
-              duration: item.duration.toString(),
-              title: item.title,
-              image: item.image ?? '',
-              child: DetailPage(recipe: item)
-            )
+                duration: item.duration.toString(),
+                title: item.title,
+                image: item.image ?? '',
+                child: DetailPage(recipe: item))
         ]);
   }
 }

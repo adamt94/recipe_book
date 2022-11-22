@@ -28,17 +28,16 @@ class IngrediantsText extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
                 visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
                 leading: Text(item.name,
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                          fontWeight: FontWeight.w500,
-                        )),
+                    style: TextStyle(
+                            color: Theme.of(context).colorScheme.onBackground)
+                        .copyWith(fontWeight: FontWeight.w500)),
                 title: Text('${item.amount} ${item.unit}',
                     style: TextStyle(
                         fontSize: 15,
                         color: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.color
-                            ?.withOpacity(0.7)))),
+                            .colorScheme
+                            .onBackground
+                            .withOpacity(0.7)))),
           );
         }
       }
@@ -52,17 +51,16 @@ class IngrediantsText extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
               visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
               leading: Text(item.name,
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).primaryColor)),
+                  style: TextStyle(
+                          color: Theme.of(context).colorScheme.onBackground)
+                      .copyWith(fontWeight: FontWeight.w500)),
               title: Text('${item.amount} ${item.unit}',
                   style: TextStyle(
                       fontSize: 15,
                       color: Theme.of(context)
-                          .textTheme
-                          .bodyLarge
-                          ?.color
-                          ?.withOpacity(0.7)))),
+                          .colorScheme
+                          .onBackground
+                          .withOpacity(0.7)))),
         );
       }
     }

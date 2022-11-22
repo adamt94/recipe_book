@@ -20,17 +20,25 @@ class FoodImg extends StatelessWidget {
                 child: Container(),
               ),
               Expanded(
-                flex: 1,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
+                  flex: 1,
+                  child: Material(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(50),
                       topRight: Radius.circular(50),
                     ),
+                    elevation: 4,
                     color: Theme.of(context).colorScheme.surface,
-                  ),
-                ),
-              )
+                    shadowColor: Theme.of(context).colorScheme.shadow,
+                    surfaceTintColor: Theme.of(context).colorScheme.primary,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(50),
+                          topRight: Radius.circular(50),
+                        ),
+                      ),
+                    ),
+                  ))
             ],
           ),
           Align(
