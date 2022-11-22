@@ -30,14 +30,16 @@ class RecipeCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
       child: OpenContainer(
         closedElevation: 0,
+        closedShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0),
+        ),
         closedColor: Colors.transparent,
         closedBuilder: (context, action) => Container(
-            color: Theme.of(context).colorScheme.surface,
+            color: Colors.transparent,
             child: Material(
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                 elevation: 1,
                 color: Theme.of(context).colorScheme.surface,
-                shadowColor: Theme.of(context).colorScheme.shadow,
                 surfaceTintColor: Theme.of(context).colorScheme.primary,
                 child: Padding(
                   padding: const EdgeInsets.all(10),
