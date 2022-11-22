@@ -46,9 +46,8 @@ class customTextField extends StatelessWidget {
                 ),
               ),
               hintText: "$hintText",
-              fillColor: Colors.white,
+              fillColor: Theme.of(context).colorScheme.surface,
               filled: true,
-              hoverColor: Colors.white70,
               label: title != null ? Text("$title") : null),
           validator: validator
               ? (value) {
