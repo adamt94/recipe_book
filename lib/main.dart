@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:recipe_book/screens/Create.dart';
 import 'package:recipe_book/screens/RecipesView/Recipes.dart';
@@ -25,7 +26,10 @@ class MyApp extends StatefulWidget {
 
 class App extends State<MyApp> {
   bool useMaterial3 = true;
-  bool useLightMode = true;
+  bool useLightMode =
+      SchedulerBinding.instance.window.platformBrightness == Brightness.light
+          ? true
+          : false;
   int colorSelected = 0;
   int screenIndex = 0;
   ColorScheme light = ColorScheme.fromSeed(
