@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:recipe_book/screens/Create.dart';
@@ -28,23 +29,30 @@ class App extends State<MyApp> {
   int colorSelected = 0;
   int screenIndex = 0;
   late ThemeData themeData;
+  ColorScheme light = ColorScheme.fromSeed(
+      seedColor: const Color(0xff6750a4), brightness: Brightness.light);
+  ColorScheme dark = ColorScheme.fromSeed(
+      seedColor: const Color(0xff6750a4), brightness: Brightness.dark);
 
   @override
   void initState() {
-    themeData = updateThemes(colorSelected, useMaterial3, useLightMode);
+    themeData =
+        updateThemes(useLightMode ? light : dark, useMaterial3, useLightMode);
     super.initState();
   }
 
   void handleBrightnessChange() {
     setState(() {
       useLightMode = !useLightMode;
-      themeData = updateThemes(colorSelected, useMaterial3, useLightMode);
+      themeData =
+          updateThemes(useLightMode ? light : dark, useMaterial3, useLightMode);
     });
   }
 
-  ThemeData updateThemes(int colorIndex, bool useMaterial3, bool useLightMode) {
+  ThemeData updateThemes(
+      ColorScheme colorScheme, bool useMaterial3, bool useLightMode) {
     return ThemeData(
-        colorSchemeSeed: Color(0xff6750a4),
+        colorScheme: colorScheme,
         useMaterial3: useMaterial3,
         brightness: useLightMode ? Brightness.light : Brightness.dark);
   }
@@ -52,13 +60,25 @@ class App extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Recipe book',
-      themeMode: useLightMode ? ThemeMode.light : ThemeMode.dark,
-      theme: themeData,
-      home: MyHomePage(
-          title: 'Recipe Book', toggleBrightness: handleBrightnessChange),
-    );
+    return DynamicColorBuilder(builder: (lightColorScheme, darkColorScheme) {
+      if (useLightMode == true && lightColorScheme != null) {
+        setState(() {
+          updateThemes(lightColorScheme, useMaterial3, useLightMode);
+        });
+      } else if (useLightMode == false && darkColorScheme != null) {
+        setState(() {
+          updateThemes(darkColorScheme, useMaterial3, useLightMode);
+        });
+      }
+
+      return MaterialApp(
+        title: 'Recipe book',
+        themeMode: useLightMode ? ThemeMode.light : ThemeMode.dark,
+        theme: themeData,
+        home: MyHomePage(
+            title: 'Recipe Book', toggleBrightness: handleBrightnessChange),
+      );
+    });
   }
 }
 

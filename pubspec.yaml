@@ -42,6 +42,7 @@ dependencies:
   aws_s3_upload: ^1.1.2
   web_smooth_scroll: ^1.0.0
   flutter_markdown: ^0.6.12
+  dynamic_color: ^1.5.4
 
 dev_dependencies:
   flutter_test:
